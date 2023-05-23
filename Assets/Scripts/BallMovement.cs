@@ -33,7 +33,7 @@ public class BallMovement : MonoBehaviour
     IEnumerator Wait()
     {
         yield return new WaitForSeconds(3);
-        if (move == 0)
+        if (move == 0 && !Input.GetKey(KeyCode.Q) && !Input.GetKey(KeyCode.M))
         {
             SceneManager.LoadScene("LooseScreen",LoadSceneMode.Single);
         }
