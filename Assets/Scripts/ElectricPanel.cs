@@ -16,6 +16,7 @@ public class ElectricPanel : MonoBehaviour
             {
                 el.GetComponent<SpriteRenderer>().color = new Color(1,1,1, 1f);
             }
+            this.gameObject.GetComponent<AudioSource>().Play();
         }
         if (Input.GetKeyUp(KeyCode.A))
         {
@@ -23,6 +24,7 @@ public class ElectricPanel : MonoBehaviour
             {
                 el.GetComponent<SpriteRenderer>().color = new Color(1,1,1, 0f);
             }
+            this.gameObject.GetComponent<AudioSource>().Stop();
         }
     }
 }
