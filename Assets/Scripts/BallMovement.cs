@@ -8,6 +8,8 @@ public class BallMovement : MonoBehaviour
     private Rigidbody2D body;
     private float move;
 
+    public GameObject leftTriangle, rightTriangle;
+
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
@@ -15,31 +17,35 @@ public class BallMovement : MonoBehaviour
 
     private void Update()
     {
+        gameObject.transform.localPosition = new Vector2(Mathf.Clamp(gameObject.transform.localPosition.x, -18, 18),gameObject.transform.position.y);
+
         float Horizontal = Input.GetAxisRaw("Horizontal");
         move = Horizontal;
 
-        if (body.position.x > -18 && body.position.x < 18)
-            body.velocity = new Vector2(move * this.speed, body.velocity.y);
+        body.velocity = new Vector2(move * this.speed, body.velocity.y);
 
         if(move == 0 && !Input.GetKey(KeyCode.Q) && !Input.GetKey(KeyCode.M))
             StartCoroutine(Wait());
         if(move != 0)
-            StopAllCoroutines();
+            StopCoroutine(Wait());
 
-        if ((body.position.x >= -18 && body.position.x <= -17) || (body.position.x >= 17 && body.position.x <= 18))
-            StartCoroutine(Wait());
+        if (leftTriangle.GetComponent<TriangleTrigger>().collide == true || rightTriangle.GetComponent<TriangleTrigger>().collide == true)
+            StartCoroutine(InTriangle());
+        if (leftTriangle.GetComponent<TriangleTrigger>().collide == false || rightTriangle.GetComponent<TriangleTrigger>().collide == false)
+            StopCoroutine(InTriangle());
     }
 
     IEnumerator Wait()
     {
         yield return new WaitForSeconds(3);
         if (move == 0 && !Input.GetKey(KeyCode.Q) && !Input.GetKey(KeyCode.M))
-        {
             SceneManager.LoadScene("LooseScreen",LoadSceneMode.Single);
-        }
-        if ((body.position.x >= -18 && body.position.x <= -17) || (body.position.x >= 17 && body.position.x <= 18))
-        {
+    }
+
+    IEnumerator InTriangle()
+    {
+        yield return new WaitForSeconds(3);
+        if (leftTriangle.GetComponent<TriangleTrigger>().collide == true || rightTriangle.GetComponent<TriangleTrigger>().collide == true)
             SceneManager.LoadScene("LooseScreen",LoadSceneMode.Single);
-        }
     }
 }
