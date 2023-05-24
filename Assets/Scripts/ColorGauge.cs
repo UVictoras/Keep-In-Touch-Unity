@@ -38,25 +38,23 @@ public class ColorGauge : MonoBehaviour
             }
             else if (useKey == 2) //Hold the key
             {
-                if (Input.GetKeyDown(KeyCode.P) && id == 1)
+                if (Input.GetKey(KeyCode.P) && id == 1)
                     keyPressedNb++;
-                else if (Input.GetKeyDown(KeyCode.H) && id == 2)
+                else if (Input.GetKey(KeyCode.H) && id == 2)
                     keyPressedNb++;
-                else if (Input.GetKeyDown(KeyCode.X) && id == 3)
+                else if (Input.GetKey(KeyCode.X) && id == 3)
                     keyPressedNb++;
                 if (keyPressedNb == 5)
-                {
-                    keyPressedNb = 0;
-                    gaugeTier[currentTier-1].GetComponent<TripleGauge>().Fill();
-                    currentTier++;
                     StartCoroutine(Wait());
-                }
             }
         }
     }
 
     private IEnumerator Wait()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(3);
+        keyPressedNb = 0;
+        gaugeTier[currentTier-1].GetComponent<TripleGauge>().Fill();
+        currentTier++;
     }
 }
