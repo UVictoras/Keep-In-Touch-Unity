@@ -39,13 +39,14 @@ public class ColorGauge : MonoBehaviour
             else if (useKey == 2) //Hold the key
             {
                 if (Input.GetKey(KeyCode.P) && id == 1)
-                    keyPressedNb++;
-                else if (Input.GetKey(KeyCode.H) && id == 2)
-                    keyPressedNb++;
-                else if (Input.GetKey(KeyCode.X) && id == 3)
-                    keyPressedNb++;
-                if (keyPressedNb == 5)
                     StartCoroutine(Wait());
+                else if (Input.GetKey(KeyCode.B) && id == 2)
+                    StartCoroutine(Wait());
+                else if (Input.GetKey(KeyCode.X) && id == 3)
+                    StartCoroutine(Wait());
+
+                if (Input.GetKeyUp(KeyCode.P) || Input.GetKeyUp(KeyCode.H) || Input.GetKeyUp(KeyCode.X))
+                    StopCoroutine(Wait());
             }
         }
     }
@@ -53,8 +54,20 @@ public class ColorGauge : MonoBehaviour
     private IEnumerator Wait()
     {
         yield return new WaitForSeconds(3);
-        keyPressedNb = 0;
-        gaugeTier[currentTier-1].GetComponent<TripleGauge>().Fill();
-        currentTier++;
+        if (Input.GetKey(KeyCode.P) && id == 1)
+        {
+            gaugeTier[currentTier-1].GetComponent<TripleGauge>().Fill();
+            currentTier++;
+        }
+        else if (Input.GetKey(KeyCode.B) && id == 2)
+        {
+            gaugeTier[currentTier-1].GetComponent<TripleGauge>().Fill();
+            currentTier++;
+        }
+        else if (Input.GetKey(KeyCode.X) && id == 3)
+        {
+            gaugeTier[currentTier-1].GetComponent<TripleGauge>().Fill();
+            currentTier++;
+        }
     }
 }
