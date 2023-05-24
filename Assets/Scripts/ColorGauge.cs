@@ -13,7 +13,7 @@ public class ColorGauge : MonoBehaviour
     private int keyPressedNb = 0;
     private void Start()
     {
-        useKey = Random.Range(1,3);
+        useKey = Random.Range(0,3);
     }
 
     private void Update()
@@ -44,14 +44,19 @@ public class ColorGauge : MonoBehaviour
                     keyPressedNb++;
                 else if (Input.GetKeyDown(KeyCode.X) && id == 3)
                     keyPressedNb++;
-
                 if (keyPressedNb == 5)
                 {
                     keyPressedNb = 0;
                     gaugeTier[currentTier-1].GetComponent<TripleGauge>().Fill();
                     currentTier++;
+                    StartCoroutine(Wait());
                 }
             }
         }
+    }
+
+    private IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(1);
     }
 }
