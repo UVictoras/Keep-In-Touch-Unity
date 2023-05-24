@@ -11,7 +11,7 @@ public class MysteryButton : MonoBehaviour
     public GameObject qte;
     private void Start()
     {
-        keyChoice = Random.Range(0,5);
+        keyChoice = Random.Range(0,4);
     }
 
     private void Update()
