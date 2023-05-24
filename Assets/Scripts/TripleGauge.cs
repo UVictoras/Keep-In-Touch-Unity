@@ -4,5 +4,10 @@ using UnityEngine;
 
 public class TripleGauge : MonoBehaviour
 {
-    public Sprite notfilled, Filled;
+    public Sprite notfilled, filled;
+
+    public void Fill()
+    {
+        this.gameObject.GetComponent<SpriteRenderer>().sprite = filled;
+    }
 }
