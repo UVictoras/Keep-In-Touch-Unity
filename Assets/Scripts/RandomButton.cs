@@ -11,17 +11,17 @@ public class RandomButton : MonoBehaviour
     public TextMeshProUGUI keyBind;
     private void Update()
     {
-        if (this.id == 1 && Input.GetKeyUp(KeyCode.S))
+        if (this.id == 1 && Input.GetKeyUp(KeyCode.S) && !Input.GetKey(KeyCode.A))
         {
             this.qte.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0f);
             keyBind.enabled = false;
         }
-        else if (this.id == 2 && Input.GetKeyUp(KeyCode.G))
+        else if (this.id == 2 && Input.GetKeyUp(KeyCode.G) && !Input.GetKey(KeyCode.A))
         {
             this.qte.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0f);
             keyBind.enabled = false;
         }
-        else if (this.id == 3 && Input.GetKeyUp(KeyCode.B))
+        else if (this.id == 3 && Input.GetKeyUp(KeyCode.B) && !Input.GetKey(KeyCode.A))
         {
             this.qte.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0f);
             keyBind.enabled = false;
