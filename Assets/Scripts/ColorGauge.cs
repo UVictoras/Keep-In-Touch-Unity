@@ -13,7 +13,7 @@ public class ColorGauge : MonoBehaviour
     private int keyPressedNb = 0;
     private void Start()
     {
-        useKey = Random.Range(0,3);
+        useKey = Random.Range(1,3);
     }
 
     private void Update()
