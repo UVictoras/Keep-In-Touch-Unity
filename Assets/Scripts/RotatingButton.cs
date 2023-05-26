@@ -9,6 +9,7 @@ public class RotatingButton : MonoBehaviour
     public TextMeshProUGUI[] inputs;
     private int inputsChoice, currentState = 1;
     private int nbTurn = 0;
+    public bool activate = false;
     private void Start()
     {
         inputsChoice = Random.Range(1,3);
@@ -27,7 +28,7 @@ public class RotatingButton : MonoBehaviour
 
     private void Update()
     {
-        if (inputsChoice == 1 && nbTurn < 3)
+        if (inputsChoice == 1 && nbTurn < 3 && activate == true)
         {
             if (Input.GetKeyUp(KeyCode.I) && currentState == 1)
             {
@@ -54,7 +55,7 @@ public class RotatingButton : MonoBehaviour
                 nbTurn++;
             }
         }
-        else if (inputsChoice == 2 && nbTurn < 3)
+        else if (inputsChoice == 2 && nbTurn < 3 && activate == true)
         {
             if (Input.GetKeyUp(KeyCode.F) && currentState == 1)
             {
@@ -82,7 +83,17 @@ public class RotatingButton : MonoBehaviour
             }
         }
 
-        if (nbTurn == 3)
+        if (nbTurn == 3 && activate == true)
+        {
+            alert.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0f);
+            for (int k = 0; k < 6; k++)
+            {
+                if (inputs[k].enabled == true)
+                    inputs[k].enabled = false;
+            }
+        }
+
+        if (activate == false)
         {
             alert.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0f);
             for (int k = 0; k < 6; k++)

@@ -9,6 +9,7 @@ public class MysteryButton : MonoBehaviour
     private int keyChoice;
     private bool state = true;
     public GameObject qte;
+    public bool activated = false;
     private void Start()
     {
         keyChoice = Random.Range(0,4);
@@ -16,7 +17,13 @@ public class MysteryButton : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(possibleKeys[keyChoice]))
+        if (Input.GetKey(possibleKeys[keyChoice]) && activated)
+        {
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = turnedOff;
+            qte.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0f);
+            state = false;
+        }
+        else if (activated == false)
         {
             this.gameObject.GetComponent<SpriteRenderer>().sprite = turnedOff;
             qte.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0f);

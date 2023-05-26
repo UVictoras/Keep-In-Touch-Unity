@@ -11,14 +11,15 @@ public class ColorGauge : MonoBehaviour
     private int useKey;
     private int currentTier = 1;
     private int keyPressedNb = 0;
+    public bool activated = false;
     private void Start()
     {
-        useKey = Random.Range(1,3);
+        useKey = 1;
     }
 
     private void Update()
     {
-        if (currentTier <= 5)
+        if (currentTier <= 5 && activated == true)
         {
             if (useKey == 1) // Mash the key
             {

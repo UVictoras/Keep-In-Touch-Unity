@@ -5,7 +5,9 @@ public class SwitchInteraction : MonoBehaviour
     public Sprite turnedOn;
     public Sprite turnedOff;
     public GameObject[] switches;  
+    public GameObject alert;
     public int id;
+    public bool activated = false;
     private int selectedSwitch;
     private string state = "Off";
     private int num;
@@ -43,38 +45,43 @@ public class SwitchInteraction : MonoBehaviour
 
     private void Update()
     {   
-        if (solution == switchesState)
-            Debug.Log("Good sequence");
-
-        if (Input.GetKeyUp(KeyCode.U))
+        if (activated == true)
         {
-            if (selectedSwitch < 5)
-                selectedSwitch++;
-            else if (selectedSwitch == 5)
-                selectedSwitch = 1;
-        }
+            if (solution == switchesState)
+                Debug.Log("Good sequence");
 
-        if (Input.GetKeyUp(KeyCode.Z))
-        {
-            if (this.id == selectedSwitch)
+            if (Input.GetKeyUp(KeyCode.U))
             {
-                if (this.state != "On")
-                    this.state = "On";
-                else 
-                    this.state = "Off";
-                this.gameObject.GetComponent<AudioSource>().Play();
+                if (selectedSwitch < 5)
+                    selectedSwitch++;
+                else if (selectedSwitch == 5)
+                    selectedSwitch = 1;
+            }
+
+            if (Input.GetKeyUp(KeyCode.Z))
+            {
+                if (this.id == selectedSwitch)
+                {
+                    if (this.state != "On")
+                        this.state = "On";
+                    else 
+                        this.state = "Off";
+                    this.gameObject.GetComponent<AudioSource>().Play();
+                }
+            }
+
+            if (this.state == "On")
+                this.gameObject.GetComponent<SpriteRenderer>().sprite = turnedOn;
+            else
+                this.gameObject.GetComponent<SpriteRenderer>().sprite = turnedOff;
+
+            if (switches.Length > 1)
+            {
+                for (int i = 0; i < 5; i++)
+                    switchesState[i] = switches[i].GetComponent<SwitchInteraction>().state;
             }
         }
-
-        if (this.state == "On")
-            this.gameObject.GetComponent<SpriteRenderer>().sprite = turnedOn;
-        else
-            this.gameObject.GetComponent<SpriteRenderer>().sprite = turnedOff;
-
-        if (switches.Length > 1)
-        {
-            for (int i = 0; i < 5; i++)
-                switchesState[i] = switches[i].GetComponent<SwitchInteraction>().state;
-        }
+        else if (id == 0 && activated == false)
+            alert.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0f);
     }
 }
